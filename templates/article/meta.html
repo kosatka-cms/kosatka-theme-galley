@@ -1,0 +1,19 @@
+{{/* The galley's byline under a content item's title (the engine's
+     article/meta.html, shown when the type shows the author and date):
+     the author's avatar, name (a link to the profile), the date, the
+     date of the last change when there is one, the view count when the
+     type shows it. The class article-meta is the engine's. */}}
+{{$author := .item.Node.CreatedBy}}
+<div class="article-meta g-byline">
+    {{if $author}}
+    <a class="g-byline-avatar" href="/{{$author.Slug}}" tabindex="-1" aria-hidden="true"><img src="{{with $author.Avatar.URI}}{{.}}{{else}}{{avatarPlaceholder}}{{end}}" alt="" width="44" height="44"></a>
+    {{end}}
+    <div class="g-byline-text">
+        {{if $author}}<a class="g-byline-name" href="/{{$author.Slug}}">{{$author.Username}}</a>{{end}}
+        <div class="g-byline-meta">
+            <time datetime="{{.item.Node.CreatedAt.Format "2006-01-02T15:04:05Z07:00"}}">{{date .item.Node.CreatedAt "medium"}}</time>
+            {{if not .item.Node.UpdatedAt.IsZero}}{{if ne (date .item.Node.UpdatedAt "medium") (date .item.Node.CreatedAt "medium")}}<span>{{t "Updated:"}} <time datetime="{{.item.Node.UpdatedAt.Format "2006-01-02T15:04:05Z07:00"}}">{{date .item.Node.UpdatedAt "medium"}}</time></span>{{end}}{{end}}
+            {{if .contentType.ShowViewCount}}<span>{{plural .item.Node.Counter.TotalCount "@count view" "@count views"}}</span>{{end}}
+        </div>
+    </div>
+</div>

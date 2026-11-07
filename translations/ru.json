@@ -1,0 +1,39 @@
+{
+  "contexts": {},
+  "strings": {
+    "@count view": [
+      "@count просмотр",
+      "@count просмотра",
+      "@count просмотров"
+    ],
+    "A blog in one reading column - serif type, a wide cover over an article, the author and sharing under it, an accent colour, a light and a dark scheme.": "Блог в одну колонку для чтения - шрифт с засечками, широкая обложка над статьёй, автор и кнопки \"поделиться\" под ней, акцентный цвет, светлая и тёмная схемы.",
+    "About the author": "Об авторе",
+    "Accent colour": "Акцентный цвет",
+    "As on the visitor's device": "Как на устройстве посетителя",
+    "Blue": "Синий",
+    "Colour scheme by default": "Цветовая схема по умолчанию",
+    "Dark": "Тёмная",
+    "Galley": "Galley",
+    "Green": "Зелёный",
+    "Light": "Светлая",
+    "Link copied": "Ссылка скопирована",
+    "Logging in and registration in the header": "Вход и регистрация в шапке",
+    "Plum": "Слива",
+    "Rust": "Ржавчина",
+    "Sans-serif": "Без засечек",
+    "Serif": "С засечками",
+    "Share": "Поделиться",
+    "Sharing and the author under a text whose type shows the author and date": "Кнопки \"поделиться\" и автор под текстом, тип которого показывает автора и дату",
+    "Switch the colour scheme": "Переключить цветовую схему",
+    "The front page's heading, over the list (the site's slogan when empty)": "Заголовок главной над списком (пусто - слоган сайта)",
+    "The text's font": "Шрифт текста",
+    "Under the content": "Под содержимым",
+    "Written by": "Автор",
+    "blog": "блог",
+    "dark": "тёмная",
+    "light": "светлая",
+    "one-column": "одна колонка",
+    "responsive": "адаптивная",
+    "serif": "с засечками"
+  }
+}

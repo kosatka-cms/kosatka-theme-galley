@@ -1,0 +1,1912 @@
+/* The galley theme: a blog in one reading column, over the engine's
+   base.css. The header, the lists, the text, the comments and the
+   footer are as wide as a comfortable line of text; a cover image over
+   an article and a sticky item's picture are wider. Source Serif 4 for
+   headings and text (its optical sizes: a display cut for the big
+   headings) (or Inter for the text too: the "text_font"
+   setting, data-text-font on <html>), Inter for the menu, dates and
+   buttons. One accent colour (the "accent" setting: data-accent on
+   <html>) in a light or a dark scheme (data-bs-theme: the visitor's
+   switch, else the "scheme" setting). It styles the engine's own
+   markup, so every list, card and page of any site gets the look: no
+   field names of a particular site are assumed. Field classes it reads:
+   the field types (item-field-image, item-field-taxonomy,
+   item-field-date, item-field-text) and the builtin View fields (title,
+   author, created_at, view_count, comment_count). */
+
+:root {
+    --g-bg: #fdfcfa;
+    --g-surface: #ffffff;
+    --g-soft: #f3f0ea;
+    --g-head: #1a1816;
+    --g-text: #2a2723;
+    --g-muted: #625d55;
+    --g-line: #e7e3dc;
+    --g-line-strong: #d6d0c5;
+    /* The accent: rust by default. */
+    --g-accent: #c2410c;
+    --g-on-accent: #ffffff;
+    --g-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --g-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --g-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --g-font-text: var(--g-serif);
+    /* The reading column and the wider pictures. */
+    --g-measure: 42rem;
+    --g-gutter: 1.5rem;
+    --g-wide: 62rem;
+    --g-radius: .625rem;
+}
+
+:root[data-accent="blue"] { --g-accent: #2560a5; }
+:root[data-accent="green"] { --g-accent: #276749; }
+:root[data-accent="plum"] { --g-accent: #a3317a; }
+
+/* The dark scheme: warm grey paper, light ink; the accents lighter, so
+   they read on it. */
+:root[data-bs-theme="dark"] {
+    --g-bg: #16171a;
+    --g-surface: #1c1d21;
+    --g-soft: #222428;
+    --g-head: #f1efea;
+    --g-text: #dedbd5;
+    --g-muted: #a8a49c;
+    --g-line: #2c2e33;
+    --g-line-strong: #3b3e44;
+    --g-accent: #f08a5d;
+    --g-on-accent: #16171a;
+}
+
+:root[data-bs-theme="dark"][data-accent="blue"] { --g-accent: #82b2ea; }
+:root[data-bs-theme="dark"][data-accent="green"] { --g-accent: #6cc196; }
+:root[data-bs-theme="dark"][data-accent="plum"] { --g-accent: #e690c4; }
+
+:root[data-text-font="sans"] {
+    --g-font-text: var(--g-sans);
+}
+
+/* Bootstrap and the engine's components (base.css, profile.css, …) in
+   the theme's colours. */
+:root,
+:root[data-bs-theme="dark"],
+.mce-content-body {
+    --bs-body-bg: var(--g-bg);
+    --bs-body-color: var(--g-text);
+    --bs-emphasis-color: var(--g-head);
+    --bs-heading-color: var(--g-head);
+    --bs-secondary-color: var(--g-muted);
+    --bs-secondary-bg: var(--g-soft);
+    --bs-tertiary-bg: var(--g-soft);
+    --bs-border-color: var(--g-line-strong);
+    --bs-body-font-family: var(--g-sans);
+    --bs-font-monospace: var(--g-mono);
+    --bs-link-color: var(--g-accent);
+    --bs-link-hover-color: var(--g-accent);
+    --bs-primary: var(--g-accent);
+    --bs-primary-text-emphasis: var(--g-accent);
+    --bs-primary-bg-subtle: color-mix(in srgb, var(--g-accent) 10%, var(--g-bg));
+    --bs-primary-border-subtle: color-mix(in srgb, var(--g-accent) 35%, var(--g-bg));
+    --bs-code-color: var(--g-head);
+    --bs-border-radius: .5rem;
+    --bs-border-radius-sm: .375rem;
+    --bs-border-radius-lg: var(--g-radius);
+    --kosatka-accent: var(--g-accent);
+    --kosatka-accent-hover: color-mix(in srgb, var(--g-accent) 82%, var(--g-head));
+    --kosatka-radius: var(--g-radius);
+    --kosatka-shadow: none;
+    --kosatka-surface: var(--g-surface);
+    --kosatka-tint: color-mix(in srgb, var(--g-accent) 10%, transparent);
+    --kosatka-tint-strong: color-mix(in srgb, var(--g-accent) 20%, transparent);
+    --kosatka-line: var(--g-line);
+    --kosatka-link: var(--g-accent);
+    --kosatka-highlight: var(--g-accent);
+    --kosatka-profile-header-bg: linear-gradient(135deg, var(--g-soft), color-mix(in srgb, var(--g-accent) 25%, var(--g-bg)));
+}
+
+/* An editor's text (TinyMCE: theme_editor_css on a .node-content body)
+   as on the page. */
+.mce-content-body {
+    margin: 1rem;
+    background: var(--g-bg);
+    color: var(--g-text);
+}
+
+body {
+    background: var(--g-bg);
+    color: var(--g-text);
+    font-family: var(--g-sans);
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: var(--g-accent);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--g-accent);
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--g-head);
+    font-family: var(--g-serif);
+    font-weight: 600;
+    letter-spacing: -.01em;
+}
+
+::selection {
+    background: color-mix(in srgb, var(--g-accent) 25%, transparent);
+}
+
+:focus-visible {
+    outline: 2px solid var(--g-accent);
+    outline-offset: 2px;
+}
+
+/* Bootstrap: round buttons, the primary in the accent, the secondary
+   in a line; fields on the surface. */
+.btn {
+    --bs-btn-border-radius: 999px;
+    --bs-btn-font-weight: 600;
+    --bs-btn-padding-x: 1.125rem;
+    --bs-btn-focus-box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--g-accent) 30%, transparent);
+}
+
+.btn-sm,
+.btn-lg {
+    --bs-btn-border-radius: 999px;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--g-accent);
+    --bs-btn-border-color: var(--g-accent);
+    --bs-btn-color: var(--g-on-accent);
+    --bs-btn-hover-bg: var(--kosatka-accent-hover);
+    --bs-btn-hover-border-color: var(--kosatka-accent-hover);
+    --bs-btn-hover-color: var(--g-on-accent);
+    --bs-btn-active-bg: var(--kosatka-accent-hover);
+    --bs-btn-active-border-color: var(--kosatka-accent-hover);
+    --bs-btn-active-color: var(--g-on-accent);
+    --bs-btn-disabled-bg: var(--g-accent);
+    --bs-btn-disabled-border-color: var(--g-accent);
+    --bs-btn-disabled-color: var(--g-on-accent);
+}
+
+.btn-secondary,
+.btn-outline-secondary {
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--g-line-strong);
+    --bs-btn-color: var(--g-text);
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-hover-border-color: var(--g-accent);
+    --bs-btn-hover-color: var(--g-accent);
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: var(--g-accent);
+    --bs-btn-active-color: var(--g-accent);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--g-line-strong);
+    --bs-btn-disabled-color: var(--g-muted);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--g-accent);
+    --bs-btn-border-color: var(--g-accent);
+    --bs-btn-hover-bg: var(--g-accent);
+    --bs-btn-hover-border-color: var(--g-accent);
+    --bs-btn-hover-color: var(--g-on-accent);
+    --bs-btn-active-bg: var(--g-accent);
+    --bs-btn-active-border-color: var(--g-accent);
+    --bs-btn-active-color: var(--g-on-accent);
+}
+
+.text-bg-primary {
+    background-color: var(--g-accent) !important;
+    color: var(--g-on-accent) !important;
+}
+
+.form-control,
+.form-select {
+    border-color: var(--g-line-strong);
+    background-color: var(--g-surface);
+    color: var(--g-text);
+}
+
+.form-control::placeholder {
+    color: var(--g-muted);
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: var(--g-accent);
+    background-color: var(--g-surface);
+    color: var(--g-text);
+    box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--g-accent) 20%, transparent);
+}
+
+.form-check-input:checked {
+    border-color: var(--g-accent);
+    background-color: var(--g-accent);
+}
+
+.card,
+.dropdown-menu,
+.modal-content {
+    --bs-card-bg: var(--g-surface);
+    --bs-dropdown-bg: var(--g-surface);
+    --bs-modal-bg: var(--g-surface);
+    --bs-card-border-color: var(--g-line);
+    --bs-dropdown-border-color: var(--g-line-strong);
+}
+
+/* The column: the header, the content and the footer are as wide as
+   the text. */
+.g-wrap,
+main.container.container-content {
+    width: 100%;
+    max-width: calc(var(--g-measure) + 2 * var(--g-gutter));
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: var(--g-gutter);
+    padding-left: var(--g-gutter);
+}
+
+main.container.container-content {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+}
+
+/* Header: the mark and the name on the left, the menu as plain links
+   and round buttons on the right. It scrolls with the page. */
+.g-header {
+    position: static;
+    border: 0;
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+}
+
+.g-header-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem 1.5rem;
+    padding-top: 2rem;
+}
+
+.g-branding {
+    display: inline-flex;
+    align-items: center;
+    gap: .625rem;
+    min-width: 0;
+    color: var(--g-head);
+}
+
+.g-branding:hover {
+    color: var(--g-head);
+    text-decoration: none;
+}
+
+.g-branding .site-name {
+    color: var(--g-head);
+    font-family: var(--g-sans);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+/* The mark: the logo in a circle, else the name's first letter in the
+   accent's circle (the name itself is the span's text: only its first
+   letter has a size). */
+.g-mark {
+    display: inline-block;
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--g-accent);
+    color: var(--g-on-accent);
+    font-family: var(--g-serif);
+    font-size: 0;
+    font-weight: 700;
+    line-height: 2rem;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.g-mark::first-letter {
+    font-size: 1.1875rem;
+    text-transform: uppercase;
+}
+
+.g-mark-logo {
+    background: var(--g-soft);
+    object-fit: cover;
+}
+
+/* The name and the buttons on one row, the menu on its own under them
+   (it fits however long it is). */
+.g-header-end {
+    display: contents;
+}
+
+.g-header .site-header-region {
+    display: flex;
+    align-items: center;
+    order: 3;
+    flex-basis: 100%;
+    margin: -.25rem 0 0 -.625rem;
+}
+
+.g-header .site-header-region .block {
+    margin: 0;
+}
+
+.g-header .site-header-region .block-menu ul.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .125rem .25rem;
+    margin: 0;
+    padding: 0;
+}
+
+.g-header .site-header-region .block-menu a {
+    display: inline-block;
+    padding: .5rem .625rem;
+    border-radius: .375rem;
+    color: var(--g-muted);
+    font-family: var(--g-sans);
+    font-size: .9375rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.g-header .site-header-region .block-menu a:hover,
+.g-header .site-header-region .block-menu .active > a {
+    color: var(--g-head);
+}
+
+/* The language switcher in the header. */
+.g-header .language-switcher .nav-link {
+    padding: .5rem .5rem;
+    color: var(--g-muted);
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.g-header .language-switcher .nav-link.active,
+.g-header .language-switcher .nav-link:hover {
+    color: var(--g-head);
+}
+
+.g-header-actions {
+    display: flex;
+    align-items: center;
+    gap: .375rem;
+    margin-left: auto;
+}
+
+.g-header-actions .site-account {
+    margin-left: .375rem;
+}
+
+.g-icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 1px solid var(--g-line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--g-text);
+}
+
+.g-icon-button:hover {
+    border-color: var(--g-accent);
+    color: var(--g-accent);
+}
+
+/* The switch shows the scheme it switches to. */
+.g-scheme-switch .g-icon-sun,
+[data-bs-theme="light"] .g-scheme-switch .g-icon-moon {
+    display: block;
+}
+
+.g-scheme-switch .g-icon-moon,
+[data-bs-theme="light"] .g-scheme-switch .g-icon-sun {
+    display: none;
+}
+
+.g-header .site-account {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.g-header .site-account a {
+    color: var(--g-text);
+    font-size: .9375rem;
+    font-weight: 500;
+}
+
+.g-header .site-account a:hover {
+    color: var(--g-accent);
+    text-decoration: none;
+}
+
+.g-header .site-account .site-account-primary,
+.g-header .site-account .site-account-primary:hover {
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    background: var(--g-head);
+    color: var(--g-bg);
+}
+
+/* A signed-in user's menu (the engine's user_menu block, rendered for a
+   signed-in user only, so shown at once, not by app.js): the avatar in
+   a circle, its panel under it. The header has no burger, so the menu
+   stays on a phone too, the name hidden. */
+.g-header .desktop-user-menu {
+    display: block !important;
+    height: auto;
+    padding-right: 0;
+}
+
+.g-header .user-menu-toggle {
+    gap: .5rem;
+    padding: .1875rem .75rem .1875rem .1875rem;
+    border: 1px solid var(--g-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--g-text);
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.g-header .user-menu-toggle:hover,
+.g-header .user-menu-toggle.active {
+    border-color: var(--g-accent);
+    background: transparent;
+}
+
+.g-header .user-avatar-small {
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    border-radius: 50%;
+}
+
+.g-header .user-menu-dropdown .user-name {
+    max-width: 10rem;
+    color: inherit;
+}
+
+.g-header .user-dropdown-menu {
+    top: calc(100% + .5rem);
+    min-width: 260px;
+    padding: .375rem;
+    border: 1px solid var(--g-line);
+    border-radius: var(--g-radius);
+    background: var(--g-surface);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .14);
+}
+
+.g-header .user-dropdown-menu .dropdown-item {
+    padding: .5rem .75rem;
+    border-radius: .375rem;
+    color: var(--g-text);
+    font-size: .9375rem;
+}
+
+.g-header .user-dropdown-menu .dropdown-item:hover {
+    background: var(--g-soft);
+    color: var(--g-head);
+}
+
+.g-header .user-dropdown-menu .dropdown-item .badge {
+    margin-left: auto !important;
+}
+
+.g-header .user-dropdown-menu .dropdown-divider {
+    margin: .25rem;
+    background: var(--g-line);
+}
+
+@media (max-width: 575.98px) {
+    .g-header .user-menu-dropdown .user-name {
+        display: none;
+    }
+
+    .g-header .user-menu-toggle {
+        padding-right: .1875rem;
+    }
+}
+
+/* The front page's heading (partials/main_column.html). */
+.g-intro {
+    margin: 0 0 3.5rem;
+}
+
+.container-content .g-intro-title {
+    margin: 0;
+    color: var(--g-head);
+    font-family: var(--g-serif);
+    font-size: clamp(2.125rem, 1.6rem + 2.2vw, 3.25rem);
+    font-weight: 500;
+    letter-spacing: -.015em;
+    line-height: 1.12;
+}
+
+.g-intro-text {
+    margin: 1.125rem 0 0;
+    color: var(--g-muted);
+    font-family: var(--g-font-text);
+    font-size: 1.375rem;
+    line-height: 1.55;
+}
+
+/* Titles and breadcrumbs. */
+.container-content h1 {
+    color: var(--g-head);
+    font-family: var(--g-serif);
+    font-size: clamp(2.125rem, 1.6rem + 2.2vw, 3.25rem);
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+}
+
+.breadcrumb {
+    margin-bottom: 1.25rem;
+    color: var(--g-muted);
+    font-size: .875rem;
+}
+
+.breadcrumb a {
+    color: var(--g-muted);
+}
+
+.breadcrumb a:hover {
+    color: var(--g-accent);
+}
+
+/* Lists (Views): rows divided by lines - the date and the counters on
+   top, the title, the start of the text, the tags. A picture: across a
+   sticky row ("at the top of lists"), a square thumbnail on the right
+   of the others. */
+.item-list:has(> .view-list-item) {
+    container-type: inline-size;
+}
+
+.item-list:has(> .view-list-item .item-field-image) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+}
+
+.view-list-item,
+.item-list:has(> .view-list-item .item-field-image) > .view-list-item {
+    --g-thumb: clamp(4.5rem, 20cqw, 8.5rem);
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    align-content: flex-start;
+    gap: .5rem 1rem;
+    padding: 1.75rem 0;
+    border: 0;
+    border-top: 1px solid var(--g-line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+    transition: none;
+}
+
+.item-list:has(> .view-list-item .item-field-image) > .view-list-item:hover {
+    transform: none;
+}
+
+.item-list > .view-list-item:first-child,
+.item-list:has(> .view-list-item .item-field-image) > .view-list-item:first-child {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.view-list-item > .item-field {
+    flex: 1 0 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+.view-list-item > .item-field,
+.item-list:has(> .view-list-item .item-field-image) > .view-list-item > .item-field {
+    padding: 0;
+}
+
+.view-list-item .item-field-image a {
+    display: block;
+}
+
+/* A row's thumbnail on the right; the row is at least as tall. */
+.item-list > .view-list-item:not(.view-list-item-sticky):has(> .item-field-image) {
+    min-height: calc(var(--g-thumb) + 3.5rem);
+    padding-right: calc(var(--g-thumb) + 1.5rem);
+}
+
+.item-list > .view-list-item:first-child:not(.view-list-item-sticky):has(> .item-field-image) {
+    min-height: calc(var(--g-thumb) + 1.75rem);
+}
+
+.item-list > .view-list-item:not(.view-list-item-sticky) > .item-field.item-field-image {
+    position: absolute;
+    top: 1.75rem;
+    right: 0;
+    width: var(--g-thumb);
+    margin: 0;
+}
+
+.item-list > .view-list-item:first-child:not(.view-list-item-sticky) > .item-field.item-field-image {
+    top: 0;
+}
+
+.view-list-item .item-field-image img,
+.view-list-item img.item-field-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    border: 0;
+    border-radius: .5rem;
+    object-fit: cover;
+}
+
+/* A sticky row: its picture across, on top, wider than the column on a
+   wide screen; the title bigger. */
+.view-list-item-sticky > .item-field-image {
+    order: -2;
+    margin-bottom: .75rem;
+}
+
+.view-list-item-sticky .item-field-image img,
+.view-list-item-sticky img.item-field-image {
+    aspect-ratio: 16 / 9;
+    border-radius: var(--g-radius);
+}
+
+/* The title. */
+.view-list-item .item-field-text:not(.item-field-name-author) .item-field-link {
+    color: var(--g-head);
+    font-family: var(--g-serif);
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    line-height: 1.2;
+}
+
+.view-list-item .item-field-text:not(.item-field-name-author) .item-field-link:hover {
+    color: var(--g-head);
+    text-decoration: underline;
+    text-decoration-color: var(--g-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: .15em;
+}
+
+.view-list-item-sticky .item-field-text:not(.item-field-name-author) .item-field-link {
+    font-size: clamp(1.875rem, 1.5rem + 1.4vw, 2.375rem);
+    line-height: 1.12;
+}
+
+/* The start of the text. */
+.view-list-item .item-field-text:not(:has(> .item-field-link)) {
+    color: var(--g-muted);
+    font-family: var(--g-font-text);
+    font-size: 1.1875rem;
+    line-height: 1.6;
+}
+
+.view-list-item-sticky .item-field-text:not(:has(> .item-field-link)) {
+    font-size: 1.25rem;
+}
+
+/* The author, the date and the counters: one muted row on top. */
+.view-list-item > .item-field-name-author,
+.view-list-item > .item-field-date,
+.view-list-item > .item-field-name-view_count,
+.view-list-item > .item-field-name-comment_count {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: .375rem;
+    order: -1;
+    margin: 0;
+    color: var(--g-muted);
+    font-family: var(--g-sans);
+    font-size: .875rem;
+}
+
+.view-list-item .item-field-name-author .item-field-link {
+    color: var(--g-text);
+    font-family: var(--g-sans);
+    font-size: inherit;
+    font-weight: 500;
+}
+
+.view-list-item .item-field-label {
+    color: var(--g-muted);
+    font-size: .875rem;
+}
+
+/* The labels of the author, the counters and the terms of a row are
+   for screen readers only: the row says what they are. */
+.view-list-item > .item-field-name-author .item-field-label,
+.view-list-item > .item-field-taxonomy .item-field-label,
+.view-list-item .item-field-name-view_count .item-field-label,
+.view-list-item .item-field-name-comment_count .item-field-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+.view-list-item .item-field-name-view_count::before,
+.view-list-item .item-field-name-comment_count::before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    background: currentColor;
+    -webkit-mask: var(--g-icon) center / contain no-repeat;
+    mask: var(--g-icon) center / contain no-repeat;
+}
+
+.view-list-item .item-field-name-view_count {
+    --g-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E");
+}
+
+.view-list-item .item-field-name-comment_count {
+    --g-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z'/%3E%3C/svg%3E");
+}
+
+/* Terms. Shown as links: "#tag" in the accent (the commas between them
+   hidden); as badges: soft pills. */
+.view-list-item > .item-field-taxonomy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .375rem .875rem;
+}
+
+/* The commas between the links are hidden (font-size 0) but stay flex
+   items of their own: the space between the links is the links' margin,
+   not a gap, or a line would start with one. */
+.view-list-item .item-field-taxonomy > .item-field-value {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 0;
+    font-size: 0;
+}
+
+.view-list-item .item-field-taxonomy > .item-field-value a,
+.g-tags a {
+    color: var(--g-accent);
+    font-family: var(--g-sans);
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.view-list-item .item-field-taxonomy > .item-field-value a,
+.g-tags a {
+    margin-right: .875rem;
+}
+
+.view-list-item .item-field-taxonomy > .item-field-value a::before,
+.g-tags a::before {
+    content: "#";
+}
+
+.view-list-item .item-field-taxonomy ul.links {
+    margin: 0;
+}
+
+.taxonomy_term a {
+    padding: .25rem .75rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--g-soft);
+    color: var(--g-text);
+    font-family: var(--g-sans);
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.taxonomy_term a:hover {
+    background: color-mix(in srgb, var(--g-accent) 14%, var(--g-soft));
+    color: var(--g-head);
+    text-decoration: none;
+}
+
+/* In a list's row a term shown as a badge is a kicker over the title:
+   small capitals in the accent. */
+.view-list-item .taxonomy_term a {
+    padding: 0;
+    background: transparent;
+    color: var(--g-accent);
+    font-size: .8125rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.view-list-item .taxonomy_term a:hover {
+    background: transparent;
+    color: var(--g-accent);
+    text-decoration: underline;
+}
+
+/* The grid style: cards with the picture on top. */
+.list-grid {
+    gap: 2rem 1.5rem;
+}
+
+.list-grid-item {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.list-grid-item:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.list-grid-item > .item-field {
+    padding: 0;
+}
+
+.list-grid-item .item-field-image img,
+.list-grid-item img.item-field-image {
+    border: 0;
+    border-radius: var(--g-radius);
+}
+
+.list-grid-item > .item-field-title .item-field-link,
+.list-grid-item .item-field-text:not(.item-field-name-author) .item-field-link {
+    color: var(--g-head);
+    font-family: var(--g-serif);
+    font-size: 1.3125rem;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.list-grid-item .item-field-text:not(:has(> .item-field-link)) {
+    color: var(--g-muted);
+    font-family: var(--g-font-text);
+    font-size: 1.0625rem;
+}
+
+.list-grid-item > .item-field-date,
+.list-grid-item > .item-field-name-author,
+.list-grid-item > .item-field-name-view_count,
+.list-grid-item > .item-field-name-comment_count {
+    order: 0;
+}
+
+/* Teasers (a term's page and other lists of teasers;
+   teaser/default.html): rows like the lists'. */
+.view-content:has(> .node-teaser) {
+    container-type: inline-size;
+}
+
+.node-teaser {
+    --g-thumb: clamp(4.5rem, 20cqw, 8.5rem);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--g-line);
+}
+
+.node-teaser:first-child {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.node-teaser:has(> .node-teaser-image) {
+    min-height: calc(var(--g-thumb) + 3.5rem);
+    padding-right: calc(var(--g-thumb) + 1.5rem);
+}
+
+.node-teaser > .node-teaser-image {
+    position: absolute;
+    top: 1.75rem;
+    right: 0;
+    width: var(--g-thumb);
+}
+
+.node-teaser:first-child > .node-teaser-image {
+    top: 0;
+}
+
+.node-teaser-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: .5rem;
+    object-fit: cover;
+}
+
+.g-teaser-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 1rem;
+    color: var(--g-muted);
+    font-size: .875rem;
+}
+
+.node-teaser-title {
+    margin: 0;
+    font-family: var(--g-serif);
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.node-teaser-title a,
+.node-teaser-title a:hover {
+    color: var(--g-head);
+}
+
+.node-teaser-title a:hover {
+    text-decoration-color: var(--g-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: .15em;
+}
+
+.node-teaser-text {
+    margin: 0;
+    color: var(--g-muted);
+    font-family: var(--g-font-text);
+    font-size: 1.1875rem;
+    line-height: 1.6;
+}
+
+.g-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 0;
+}
+
+/* A grouped list's heading. */
+.view-group-heading {
+    margin: 2.5rem 0 .5rem;
+    color: var(--g-muted);
+    font-family: var(--g-sans);
+    font-size: .8125rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+/* Paging: round buttons, the current page filled. */
+.pagination {
+    justify-content: flex-start;
+    margin-top: 2.5rem;
+}
+
+.pagination .pager {
+    gap: .375rem;
+}
+
+.pagination .pager li > a,
+.pagination .pager li > span,
+.pagination .pager-current {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    padding: 0 .875rem;
+    border: 1px solid var(--g-line);
+    border-radius: 999px;
+    color: var(--g-text);
+    font-size: .9375rem;
+    font-weight: 500;
+}
+
+.pagination .pager li > a:hover {
+    border-color: var(--g-accent);
+    color: var(--g-accent);
+    text-decoration: none;
+}
+
+.pagination .pager-current {
+    border-color: var(--g-head);
+    background: var(--g-head);
+    color: var(--g-bg);
+}
+
+/* The sidebar region under the content (partials/main_column.html,
+   "Under the content"): a line above, a block after another as wide as
+   the text; block titles small and muted. */
+.g-more {
+    padding-top: 2.5rem;
+}
+
+.g-more > .sidebar {
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--g-line);
+}
+
+/* The regions' frames of the Blocks page's demo mode (?blocks_demo=1)
+   as wide as their region. */
+.g-footer-row > .block-region-demo {
+    flex: 1 1 100%;
+}
+
+.sidebar .block {
+    margin: 0 0 2.25rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    font-size: 1rem;
+}
+
+.sidebar .block h2,
+.sidebar .block .block-title,
+.sidebar h2:has(+ .block) {
+    margin: 0 0 .875rem;
+    padding: 0;
+    border: 0;
+    color: var(--g-muted);
+    font-family: var(--g-sans);
+    font-size: .8125rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.sidebar h2 + .block {
+    border-top: 0;
+}
+
+.sidebar .block p:last-child {
+    margin-bottom: 0;
+}
+
+/* A list there: lines, the title in the serif, no pictures. */
+.sidebar .view-list-item,
+.sidebar .item-list:has(> .view-list-item .item-field-image) > .view-list-item {
+    gap: .25rem .75rem;
+    min-height: 0;
+    padding: .75rem 0;
+}
+
+.sidebar .item-list > .view-list-item:not(.view-list-item-sticky):has(> .item-field-image) {
+    min-height: 0;
+    padding-right: 0;
+}
+
+.sidebar .view-list-item > .item-field-image {
+    display: none;
+}
+
+.sidebar .view-list-item:first-child {
+    padding-top: 0;
+}
+
+.sidebar .view-list-item .item-field-text:not(.item-field-name-author) .item-field-link {
+    font-family: var(--g-serif);
+    font-size: 1.1875rem;
+    line-height: 1.3;
+}
+
+.sidebar .view-list-item .item-field-text:not(:has(> .item-field-link)) {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.sidebar .view-list-item > .item-field-date,
+.sidebar .view-list-item > .item-field-name-author,
+.sidebar .view-list-item > .item-field-name-view_count,
+.sidebar .view-list-item > .item-field-name-comment_count {
+    order: 0;
+    font-size: .8125rem;
+}
+
+/* The latest comments. */
+.sidebar .block .item-list ul {
+    display: flex;
+    flex-direction: column;
+    gap: .625rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar .block .item-list li {
+    margin: 0;
+    padding: 0;
+    line-height: 1.45;
+}
+
+.sidebar .block .item-list li a {
+    color: var(--g-text);
+}
+
+.sidebar .block .more-link {
+    margin-top: .75rem;
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+/* The tag cloud. */
+.tag-cloud-list {
+    gap: .375rem .875rem;
+}
+
+.tag-cloud-list a {
+    color: var(--g-text);
+}
+
+.tag-cloud-list a:hover {
+    color: var(--g-accent);
+}
+
+/* The search: a round field and a button. */
+.sidebar .block-search {
+    margin-bottom: 2.25rem;
+}
+
+.search-form {
+    gap: .5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+.search-form:focus-within {
+    box-shadow: none;
+}
+
+.search-form .search-icon {
+    display: none;
+}
+
+.search-form input {
+    height: 2.75rem;
+    padding: 0 1rem;
+    border: 1px solid var(--g-line-strong);
+    border-radius: 999px;
+    background: var(--g-surface);
+    color: var(--g-text);
+    font-size: .9375rem;
+}
+
+.search-form input:focus {
+    border-color: var(--g-accent);
+}
+
+.search-form input::placeholder {
+    color: var(--g-muted);
+}
+
+.search-form .search-btn,
+.search-form .search-btn:hover {
+    height: 2.75rem;
+    padding: 0 1.125rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--g-head);
+    color: var(--g-bg);
+    font-size: .9375rem;
+    font-weight: 600;
+}
+
+.search_autocomplete_results {
+    border: 1px solid var(--g-line);
+    border-radius: var(--g-radius);
+    background: var(--g-surface);
+}
+
+.search_autocomplete_results:empty {
+    border: 0;
+}
+
+.search_autocomplete_results a {
+    color: var(--g-text);
+}
+
+.search_autocomplete_results a:hover {
+    background: var(--g-soft);
+    text-decoration: none;
+}
+
+/* The poll (the polls module's block) and the random quote (the quotes
+   module's): the bars in the accent, the quote in italics. */
+.poll-result-bar-bg {
+    border-radius: 999px;
+    background: var(--g-soft);
+}
+
+.poll-result-bar-fill {
+    border-radius: 999px;
+    background: var(--g-accent);
+}
+
+.sidebar .poll-block-question a {
+    color: var(--g-head);
+}
+
+.sidebar .block-quotes {
+    margin-bottom: 2.25rem;
+    padding: 0 0 0 1.125rem;
+    border-left: 3px solid var(--g-accent);
+    font-family: var(--g-serif);
+    font-size: 1.1875rem;
+    font-style: italic;
+}
+
+.sidebar .block-quotes .quotes-author {
+    color: var(--g-muted);
+    font-family: var(--g-sans);
+    font-size: .875rem;
+    font-style: normal;
+}
+
+/* A content page: the title, the byline (article/meta.html), a cover
+   wider than the column, the text. */
+.node-title {
+    margin: 0 0 1.5rem;
+}
+
+.node-subtitle {
+    margin: -.75rem 0 1.5rem;
+    color: var(--g-muted);
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.node-actions {
+    margin-bottom: 1.25rem;
+}
+
+.node-actions .action-link {
+    border: 1px solid var(--g-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--g-text);
+    font-size: .8125rem;
+}
+
+.node-actions .action-link:hover {
+    border-color: var(--g-accent);
+    color: var(--g-accent);
+    text-decoration: none;
+}
+
+.g-byline {
+    display: flex;
+    align-items: center;
+    gap: .875rem;
+    margin: 0 0 2.25rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: .875rem;
+}
+
+.g-byline-avatar,
+.g-byline-avatar:hover {
+    flex: none;
+    text-decoration: none;
+}
+
+.g-byline-avatar img {
+    display: block;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.g-byline-text {
+    display: flex;
+    flex-direction: column;
+    gap: .125rem;
+    min-width: 0;
+    line-height: 1.45;
+}
+
+.g-byline-name {
+    color: var(--g-head);
+    font-weight: 600;
+}
+
+.g-byline-name:hover {
+    color: var(--g-head);
+}
+
+.g-byline-meta {
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--g-muted);
+}
+
+.g-byline-meta > * + *::before {
+    content: "\00B7";
+    margin: 0 .5rem;
+}
+
+/* The first picture of an item: wide over the text where there is room
+   (not a portrait: a cover or a poster stays in the column). */
+.dynamic-field-image img,
+img.dynamic-field-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 0;
+    border-radius: var(--g-radius);
+}
+
+.node > .dynamic-field-image {
+    margin-bottom: 2.25rem;
+}
+
+@media (min-width: 66rem) {
+    .node > .dynamic-field-image:not(.dynamic-field-image-portrait):not(.dynamic-field-image ~ .dynamic-field-image) {
+        margin-right: calc((var(--g-measure) - var(--g-wide)) / 2);
+        margin-left: calc((var(--g-measure) - var(--g-wide)) / 2);
+    }
+
+    /* Its margin box stays the row's width, so nothing shares its line. */
+    .view-list-item-sticky > .item-field-image {
+        flex-basis: calc(100% + (var(--g-wide) - var(--g-measure)) / 2);
+        margin-right: calc((var(--g-measure) - var(--g-wide)) / 4);
+        margin-left: calc((var(--g-measure) - var(--g-wide)) / 4);
+    }
+}
+
+.dynamic-field-image figcaption,
+.dynamic-field-image .image-caption {
+    margin-top: .625rem;
+    color: var(--g-muted);
+    font-size: .875rem;
+}
+
+/* The text. */
+.node-content {
+    color: var(--g-text);
+    font-family: var(--g-font-text);
+    font-size: 1.3125rem;
+    line-height: 1.7;
+}
+
+:root[data-text-font="sans"] .node-content {
+    font-size: 1.125rem;
+    line-height: 1.75;
+}
+
+.node-content p {
+    margin: 0 0 1.5rem;
+}
+
+.node-content h2,
+.node-content h3,
+.node-content h4,
+.node-content h5,
+.node-content h6 {
+    margin: 2.75rem 0 1rem;
+    color: var(--g-head);
+    font-family: var(--g-serif);
+    font-weight: 600;
+    letter-spacing: -.01em;
+    line-height: 1.25;
+    scroll-margin-top: 1.5rem;
+}
+
+.node-content h2 {
+    font-size: 1.875rem;
+}
+
+.node-content h3 {
+    font-size: 1.4375rem;
+}
+
+.node-content h4,
+.node-content h5,
+.node-content h6 {
+    font-size: 1.1875rem;
+}
+
+.node-content > h2:first-child,
+.node-content > h3:first-child {
+    margin-top: 0;
+}
+
+.node-content strong,
+.node-content b {
+    color: var(--g-head);
+}
+
+.node-content a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--g-accent);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: .2em;
+}
+
+.node-content a:hover {
+    color: var(--g-accent);
+}
+
+.node-content ul,
+.node-content ol {
+    margin: 0 0 1.5rem;
+    padding-left: 1.625rem;
+}
+
+.node-content li + li {
+    margin-top: .375rem;
+}
+
+.node-content li::marker {
+    color: var(--g-accent);
+}
+
+.node-content blockquote {
+    margin: 2.25rem 0;
+    padding: .25rem 0 .25rem 1.5rem;
+    border: 0;
+    border-left: 3px solid var(--g-accent);
+    color: var(--g-head);
+    font-family: var(--g-serif);
+    font-size: 1.5rem;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.node-content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* A break between parts: three dots. */
+.node-content hr {
+    height: auto;
+    margin: 2.75rem 0;
+    border: 0;
+    background: none;
+    color: var(--g-muted);
+    opacity: 1;
+    text-align: center;
+}
+
+.node-content hr::before {
+    content: "\00B7\2002\00B7\2002\00B7";
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.node-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: .5rem;
+}
+
+.node-content figure {
+    margin: 2.25rem 0;
+}
+
+.node-content figure figcaption {
+    margin-top: .625rem;
+    color: var(--g-muted);
+    font-family: var(--g-sans);
+    font-size: .875rem;
+    line-height: 1.5;
+}
+
+.node-content iframe {
+    max-width: 100%;
+    border: 0;
+    border-radius: .5rem;
+}
+
+.node-content table {
+    width: 100%;
+    margin: 0 0 1.5rem;
+    font-family: var(--g-sans);
+    font-size: .9375rem;
+    line-height: 1.5;
+}
+
+.node-content th,
+.node-content td {
+    padding: .625rem .75rem .625rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--g-line);
+}
+
+.node-content th {
+    border-bottom: 2px solid var(--g-line-strong);
+    color: var(--g-head);
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Code: inline on a soft background; a block on it too, scrolling. */
+.node-content :not(pre) > code,
+.comment-body :not(pre) > code {
+    padding: .1em .35em;
+    border-radius: .3rem;
+    background: var(--g-soft);
+    color: var(--g-head);
+    font-family: var(--g-mono);
+    font-size: .82em;
+}
+
+.node-content pre,
+.comment-body pre {
+    margin: 1.75rem 0;
+    padding: 1rem 1.25rem;
+    border: 0;
+    border-radius: .5rem;
+    background: var(--g-soft);
+    color: var(--g-text);
+    font-family: var(--g-mono);
+    font-size: .9375rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    tab-size: 4;
+}
+
+.node-content pre code,
+.comment-body pre code {
+    padding: 0;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+}
+
+/* The other fields (the fact box): a soft card. */
+.item-characteristic {
+    margin: 2rem 0;
+    padding: 1.125rem 1.25rem;
+    border: 0;
+    border-radius: var(--g-radius);
+    background: var(--g-soft);
+    font-size: .9375rem;
+}
+
+.item-characteristic .field-list,
+.field-list-group-label {
+    color: var(--g-muted);
+}
+
+.field-list-group-label {
+    font-family: var(--g-sans);
+    font-size: .8125rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+/* A node's galleries (the galleries module's) and the images of a
+   field: rounded previews. */
+.node-gallery .content-image-link img,
+.dynamic-field-images-grid img {
+    border: 0;
+    border-radius: .5rem;
+}
+
+.node-gallery .content-image-link:hover img,
+.dynamic-field-images-grid a:hover img {
+    opacity: .9;
+}
+
+/* Sharing and the author (social_share.html). */
+.g-after {
+    margin-top: 2.5rem;
+}
+
+.g-share {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--g-line);
+    border-bottom: 1px solid var(--g-line);
+}
+
+.g-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .4375rem;
+    min-height: 2.5rem;
+    padding: 0 1rem;
+    border: 1px solid var(--g-line-strong);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--g-text);
+    font-family: var(--g-sans);
+    font-size: .875rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.g-pill[hidden] {
+    display: none;
+}
+
+.g-pill:hover,
+.g-pill.is-copied {
+    border-color: var(--g-accent);
+    color: var(--g-accent);
+    text-decoration: none;
+}
+
+.g-author {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 2rem 0 .5rem;
+}
+
+.g-author-avatar,
+.g-author-avatar:hover {
+    flex: none;
+    text-decoration: none;
+}
+
+.g-author-avatar img {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.g-author-text {
+    min-width: 0;
+}
+
+.g-author-label {
+    margin: 0 0 .25rem;
+    color: var(--g-muted);
+    font-size: .875rem;
+}
+
+.g-author-name {
+    color: var(--g-head);
+    font-family: var(--g-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.g-author-name:hover {
+    color: var(--g-head);
+}
+
+.g-author-bio {
+    margin-top: .5rem;
+    color: var(--g-muted);
+    font-family: var(--g-font-text);
+    font-size: 1.125rem;
+    line-height: 1.55;
+}
+
+.g-author-bio p:last-child {
+    margin-bottom: 0;
+}
+
+/* Attached Views and the content_bottom region under a text: a line,
+   then the lists as usual. */
+.node .view-attachments,
+.container-content .content > .block,
+.container-content .content > h2:has(+ .block) {
+    margin-top: 2.5rem;
+}
+
+/* Comments: a line above, the avatars round, a reply moves in. */
+.comment-wrapper {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--g-line);
+}
+
+.comment-wrapper > .title {
+    margin-bottom: 1.5rem;
+    color: var(--g-head);
+    font-family: var(--g-serif);
+    font-size: 1.875rem;
+    font-weight: 600;
+}
+
+/* The modules' buttons under the heading (Subscribe to the comments):
+   round, like the theme's. */
+.subscriptions-follow-on,
+.subscriptions-follow-state {
+    padding: .5rem 1rem;
+    border-color: var(--g-line-strong);
+    border-radius: 999px;
+    background: transparent;
+    font-family: var(--g-sans);
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.subscriptions-follow-on:hover {
+    border-color: var(--g-accent);
+    color: var(--g-accent);
+}
+
+.comment-wrapper .auth-notice,
+.auth-notice-bottom {
+    color: var(--g-muted);
+}
+
+.comment-wrapper .message {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.comment-wrapper .message .user-picture img {
+    border-radius: 50%;
+}
+
+.comment-wrapper .message-title .username a {
+    color: var(--g-head);
+    font-size: .9375rem;
+    font-weight: 600;
+}
+
+.comment-wrapper .message-title .date,
+.comment-wrapper .message-title .reply-to {
+    color: var(--g-muted);
+    font-size: .875rem;
+}
+
+.comment-wrapper .message-content {
+    color: var(--g-text);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+}
+
+.comment-wrapper .message footer a {
+    color: var(--g-muted);
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.comment-wrapper .message footer a:hover {
+    color: var(--g-accent);
+}
+
+.back-to-top {
+    border: 1px solid var(--g-line-strong);
+    border-radius: 50%;
+    background: var(--g-surface);
+    color: var(--g-text);
+}
+
+/* Footer: a line above, small and muted; the menu in one row, the
+   footer_bottom region's blocks in a row under it - the first (the
+   copyright) on the left, the others on the right. */
+.g-footer {
+    margin-top: auto;
+    padding: 0 0 2.5rem;
+    border: 0;
+    background: transparent;
+    color: var(--g-muted);
+    font-size: .875rem;
+}
+
+.g-footer > .g-wrap {
+    padding-top: 2rem;
+    border-top: 1px solid var(--g-line);
+}
+
+/* The footer's line is as wide as the column, not the window. */
+.g-footer > .g-wrap {
+    max-width: var(--g-measure);
+    padding-right: 0;
+    padding-left: 0;
+}
+
+@media (max-width: 45rem) {
+    .g-footer > .g-wrap {
+        margin-right: var(--g-gutter);
+        margin-left: var(--g-gutter);
+        width: auto;
+    }
+}
+
+.g-footer a {
+    color: var(--g-muted);
+}
+
+.g-footer a:hover {
+    color: var(--g-accent);
+}
+
+.g-footer .site-footer-region .block {
+    margin-bottom: 1rem;
+}
+
+.g-footer .site-footer-region ul.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.g-footer .site-footer-region ul.menu ul {
+    display: none;
+}
+
+.g-footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .75rem 1.5rem;
+}
+
+.g-footer-row .block,
+.g-footer-row p {
+    margin: 0;
+}
+
+.g-footer .site-footer-credit {
+    margin: 0;
+    color: var(--g-muted);
+    font-size: .875rem;
+}
+
+.g-footer-row > :only-child {
+    margin-right: auto;
+}
+
+@media (max-width: 575.98px) {
+    .node-content {
+        font-size: 1.1875rem;
+    }
+
+    :root[data-text-font="sans"] .node-content {
+        font-size: 1.0625rem;
+    }
+
+    .view-list-item .item-field-text:not(.item-field-name-author) .item-field-link,
+    .node-teaser-title {
+        font-size: 1.4375rem;
+    }
+
+    .view-list-item .item-field-text:not(:has(> .item-field-link)),
+    .node-teaser-text {
+        font-size: 1.0625rem;
+    }
+
+    .node-content blockquote {
+        font-size: 1.3125rem;
+    }
+}

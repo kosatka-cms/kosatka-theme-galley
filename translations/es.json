@@ -1,0 +1,38 @@
+{
+  "contexts": {},
+  "strings": {
+    "@count view": [
+      "@count visita",
+      "@count visitas"
+    ],
+    "A blog in one reading column - serif type, a wide cover over an article, the author and sharing under it, an accent colour, a light and a dark scheme.": "Un blog en una columna de lectura - letra con serifa, una portada ancha sobre el artículo, el autor y compartir debajo, un color de acento, un esquema claro y uno oscuro.",
+    "About the author": "Sobre el autor",
+    "Accent colour": "Color de acento",
+    "As on the visitor's device": "Como en el dispositivo del visitante",
+    "Blue": "Azul",
+    "Colour scheme by default": "Esquema de color por defecto",
+    "Dark": "Oscuro",
+    "Galley": "Galley",
+    "Green": "Verde",
+    "Light": "Claro",
+    "Link copied": "Enlace copiado",
+    "Logging in and registration in the header": "Acceso y registro en la cabecera",
+    "Plum": "Ciruela",
+    "Rust": "Óxido",
+    "Sans-serif": "Sin serifa",
+    "Serif": "Con serifa",
+    "Share": "Compartir",
+    "Sharing and the author under a text whose type shows the author and date": "Compartir y el autor bajo un texto cuyo tipo muestra el autor y la fecha",
+    "Switch the colour scheme": "Cambiar el esquema de color",
+    "The front page's heading, over the list (the site's slogan when empty)": "El título de la portada sobre la lista (vacío - el lema del sitio)",
+    "The text's font": "Fuente del texto",
+    "Under the content": "Bajo el contenido",
+    "Written by": "Escrito por",
+    "blog": "blog",
+    "dark": "oscuro",
+    "light": "claro",
+    "one-column": "una columna",
+    "responsive": "adaptable",
+    "serif": "serifa"
+  }
+}

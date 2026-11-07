@@ -1,0 +1,33 @@
+{{/* main_column - the galley's content in one reading column: on the
+     front page its heading (the "intro" setting, else the site's slogan;
+     with both, the slogan under it), then the breadcrumb, title, the
+     content_top region, content and the content_bottom region; the
+     sidebar region ("Under the content") comes under it, a block after
+     another, unless it is a service page (.servicePage: error pages,
+     editor forms). */}}
+{{define "main_column"}}
+{{$intro := themeSetting "intro"}}
+<div class="content g-column">
+    {{if .isHomepage}}{{with or $intro .siteSlogan}}
+    <header class="g-intro">
+        <h1 class="g-intro-title">{{.}}</h1>
+        {{if and $intro $.siteSlogan}}<p class="g-intro-text">{{$.siteSlogan}}</p>{{end}}
+    </header>
+    {{end}}{{end}}
+
+    {{template "breadcrumb" .}}
+
+    {{template "title" .}}
+
+    {{template "region_blocks" (dict "Region" (region "content_top") "Ctx" .)}}
+
+    {{template "content" .}}
+
+    {{template "region_blocks" (dict "Region" (region "content_bottom") "Ctx" .)}}
+</div>
+{{if and (not .servicePage) (regionHasBlocks "sidebar" .)}}
+<div class="g-more">
+    {{template "sidebar.html" .}}
+</div>
+{{end}}
+{{end}}
