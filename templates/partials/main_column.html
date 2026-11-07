@@ -1,33 +1,42 @@
-{{/* main_column - the galley's content in one reading column: on the
-     front page its heading (the "intro" setting, else the site's slogan;
-     with both, the slogan under it), then the breadcrumb, title, the
-     content_top region, content and the content_bottom region; the
-     sidebar region ("Under the content") comes under it, a block after
-     another, unless it is a service page (.servicePage: error pages,
-     editor forms). */}}
+{{/* main_column - the galley's page: the reading column and the margin
+     beside it (galley.css; the margin goes under the column on a phone).
+     The column: on the front page its heading (the "intro" setting, else
+     the site's slogan; with both, the slogan under it), then the
+     breadcrumb, title, the content_top region, content and the
+     content_bottom region. The margin: on a content page whose type shows
+     the author and date, the byline (galley_byline; the column has its
+     own for a phone), then the sidebar region ("Margin") - galley.js puts
+     the contents of a long text after the byline. No margin on a service
+     page (.servicePage: error pages, editor forms), nor when it would be
+     empty: the column is centred then. */}}
 {{define "main_column"}}
 {{$intro := themeSetting "intro"}}
-<div class="content g-column">
-    {{if .isHomepage}}{{with or $intro .siteSlogan}}
-    <header class="g-intro">
-        <h1 class="g-intro-title">{{.}}</h1>
-        {{if and $intro $.siteSlogan}}<p class="g-intro-text">{{$.siteSlogan}}</p>{{end}}
-    </header>
-    {{end}}{{end}}
+{{$blocks := and (not .servicePage) (regionHasBlocks "sidebar" .)}}
+{{$byline := and (not .servicePage) .item .contentType .contentType.ShowSubmitted}}
+<div class="g-page{{if or $blocks $byline}} g-page-margin{{end}}">
+    <div class="content g-column">
+        {{if .isHomepage}}{{with or $intro .siteSlogan}}
+        <header class="g-intro">
+            <h1 class="g-intro-title">{{.}}</h1>
+            {{if and $intro $.siteSlogan}}<p class="g-intro-text">{{$.siteSlogan}}</p>{{end}}
+        </header>
+        {{end}}{{end}}
 
-    {{template "breadcrumb" .}}
+        {{template "breadcrumb" .}}
 
-    {{template "title" .}}
+        {{template "title" .}}
 
-    {{template "region_blocks" (dict "Region" (region "content_top") "Ctx" .)}}
+        {{template "region_blocks" (dict "Region" (region "content_top") "Ctx" .)}}
 
-    {{template "content" .}}
+        {{template "content" .}}
 
-    {{template "region_blocks" (dict "Region" (region "content_bottom") "Ctx" .)}}
+        {{template "region_blocks" (dict "Region" (region "content_bottom") "Ctx" .)}}
+    </div>
+    {{if or $blocks $byline}}
+    <aside class="g-margin" aria-label="{{t "Margin"}}">
+        {{if $byline}}{{template "galley_byline" (dict "Ctx" . "Class" "g-byline-margin")}}{{end}}
+        {{if $blocks}}{{template "sidebar.html" .}}{{end}}
+    </aside>
+    {{end}}
 </div>
-{{if and (not .servicePage) (regionHasBlocks "sidebar" .)}}
-<div class="g-more">
-    {{template "sidebar.html" .}}
-</div>
-{{end}}
 {{end}}

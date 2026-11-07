@@ -1,35 +1,37 @@
-# The galley theme: a blog in one reading column - the header, the
-# lists, the text and the comments in one narrow column, serif type for
-# reading, a wide cover over an article, the author under it, a sticky
-# item at the top of a list with its picture across; an accent colour
-# chosen on the Appearance page, a light and a dark scheme. It keeps the
-# engine's regions, so blocks placed for another theme stay on the page:
-# the one beside the content elsewhere (sidebar) is under it here.
+# The galley theme: a blog set like a printed page - a reading column
+# and a margin beside it. The text, the lists and the comments are in
+# the column; the margin holds the sidebar's blocks as notes, and on a
+# content page the byline, the other fields and the contents of a long
+# text. The site's name as a wordmark in one row with the menu, rules
+# instead of cards, Spectral for reading, small capitals for dates. An
+# accent colour chosen on the Appearance page, a light and a dark
+# scheme. On a phone the margin goes under the text. It keeps the
+# engine's regions, so blocks placed for another theme stay on the page.
 name: Galley
 # favicon - the theme's icon (the site's, uploaded on Site information,
 # replaces it).
 favicon: /static/themes/galley/images/galley-icon.svg
 # The theme's description (Appearance page; entity.ThemeInfo).
-description: A blog in one reading column - serif type, a wide cover over an article, the author and sharing under it, an accent colour, a light and a dark scheme.
+description: A blog set like a printed page - a reading column and a margin with the blocks, the byline and the contents, the site's name as a wordmark, rules instead of cards, an accent colour, a light and a dark scheme.
 author: Kosatka
 license: MIT
 # version - this release (the tag vX.Y.Z without its "v"); min_version -
 # the oldest engine release the theme works with.
-version: 0.1.0
+version: 0.2.0
 min_version: 0.1.0
 homepage: https://github.com/kosatka-cms/kosatka-theme-galley
-tags: [light, dark, serif, blog, one-column, responsive]
+tags: [light, dark, serif, blog, typographic, responsive]
 screenshot: screenshot.jpg
 # default_region - where new blocks go.
 default_region: sidebar
 regions:
   - id: header
     label: Header
-  # Under the content, a block after another (partials/main_column.html).
-  # The engine's ID: a site switching themes keeps its blocks here, and
-  # the modules' blocks come here as to a sidebar.
+  # The margin beside the text (partials/main_column.html); under it on
+  # a phone. The engine's ID: a site switching themes keeps its blocks
+  # here, and the modules' blocks come here as to a sidebar.
   - id: sidebar
-    label: Under the content
+    label: Margin
   # Between the page's title and its content.
   - id: content_top
     label: Content top
@@ -55,8 +57,9 @@ blocks:
     body: |
       <p>Powered by <a href="https://github.com/kosatka-cms/kosatka">Kosatka CMS</a></p>
 # settings - the theme's options on the Appearance page
-# (entity.ThemeSetting). The accent and the font are attributes of
-# <html> (partials/theme_head.html), galley.css has their colours.
+# (entity.ThemeSetting). The accent, the font, the lists' pictures and
+# the contents are attributes of <html> (partials/theme_head.html):
+# galley.css and galley.js read them.
 settings:
   - id: accent
     label: Accent colour
@@ -91,6 +94,19 @@ settings:
         label: Serif
       - value: sans
         label: Sans-serif
+  - id: list_pictures
+    label: Pictures in lists
+    type: select
+    default: sticky
+    options:
+      - value: sticky
+        label: The pinned item's only, across the column
+      - value: all
+        label: Every item's - the pinned one across, the others on the left
+  - id: toc
+    label: The contents of a text with three headings or more, in the margin
+    type: bool
+    default: true
   - id: intro
     label: The front page's heading, over the list (the site's slogan when empty)
     type: text

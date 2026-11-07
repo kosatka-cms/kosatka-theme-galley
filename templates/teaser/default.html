@@ -1,8 +1,9 @@
 {{/* The galley teaser (a term's page and other lists of teasers;
-     entity.TeaserItem), a row like the Views' lists: the date, the
-     title, the start of the body text, the terms with public pages as
-     "#term" links; the type's first image field in its list style, a
-     thumbnail on the right where the list is wide (galley.css). */}}
+     entity.TeaserItem), a row like the Views' lists: a line of small
+     capitals - the date and the comments - then the title, the start of
+     the body text and the terms with public pages; the type's first image
+     field in its list style, shown as the "list_pictures" setting says
+     (galley.css). */}}
 {{define "teaser_default"}}
 {{$it := .}}
 {{$title := or $it.AltTitle $it.Node.Title}}
@@ -11,9 +12,9 @@
     {{with $it.MainImage}}{{if .URI}}
     <a href="{{$href}}" class="node-teaser-image" tabindex="-1" aria-hidden="true">{{img (styledPicture . $it.ImageStyle) ""}}</a>
     {{end}}{{end}}
-    <div class="g-teaser-meta"><time datetime="{{$it.Node.CreatedAt.Format "2006-01-02T15:04:05Z07:00"}}">{{date $it.Node.CreatedAt "medium"}}</time>{{with $it.CommentCount}}<span>{{plural . "@count comment" "@count comments"}}</span>{{end}}</div>
+    <p class="g-teaser-meta"><time datetime="{{$it.Node.CreatedAt.Format "2006-01-02T15:04:05Z07:00"}}">{{date $it.Node.CreatedAt "medium"}}</time>{{with $it.CommentCount}}<span>{{plural . "@count comment" "@count comments"}}</span>{{end}}</p>
     <h2 class="node-teaser-title"><a href="{{$href}}"{{with $it.Node.Langcode}} lang="{{.}}"{{end}}>{{$title}}</a>{{with otherLanguage $it.Node.Langcode}} <span class="badge text-bg-secondary node-teaser-language">{{.}}</span>{{end}}</h2>
     {{with plainPreview $it.Body 240}}<p class="node-teaser-text">{{.}}</p>{{end}}
-    {{if $it.Terms}}<div class="g-tags">{{range $it.Terms}}{{range .}}{{if .HasPublicPage}}<a href="{{localURL (print "/" .Slug)}}">{{termName .}}</a>{{end}}{{end}}{{end}}</div>{{end}}
+    {{if $it.Terms}}<p class="g-tags">{{range $it.Terms}}{{range .}}{{if .HasPublicPage}}<a href="{{localURL (print "/" .Slug)}}">{{termName .}}</a>{{end}}{{end}}{{end}}</p>{{end}}
 </article>
 {{end}}

@@ -1,11 +1,13 @@
 # Galley
 
-A theme for [Kosatka](https://github.com/kosatka-cms/kosatka): a blog in
-one reading column. The header, the lists, the text and the comments are
-as wide as a comfortable line; serif type for reading, a wide cover over
-an article, the author and sharing under it. A sticky item leads the
-lists with its picture across; the other rows have a thumbnail on the
-right. An accent colour, a light and a dark scheme.
+A theme for [Kosatka](https://github.com/kosatka-cms/kosatka): a blog
+set like a printed page. A reading column and a margin beside it - the
+text, the lists and the comments in the column; the blocks in the margin
+as notes, not cards, and on an article the byline and the contents of a
+long text there too. The site's name as a wordmark in one row with the
+menu, rules instead of cards, Spectral for reading, small capitals for
+dates and labels. An accent colour, a light and a dark scheme. On a
+phone the margin goes under the text.
 
 ![Galley](https://raw.githubusercontent.com/kosatka-cms/kosatka-theme-galley/main/static/screenshot.jpg)
 
@@ -27,6 +29,8 @@ On *Appearance → Galley → Settings*:
 | Accent colour - rust, blue, green or plum | rust |
 | Colour scheme by default - as on the visitor's device, light or dark | as on the device |
 | The text's font - serif or sans-serif | serif |
+| Pictures in lists - the pinned item's only, or every item's (the others on the left) | the pinned item's |
+| The contents of a text with three headings or more, in the margin | on |
 | The front page's heading, over the list | the site's slogan |
 | Sharing and the author under a text whose type shows the author and date | on |
 | Logging in and registration in the header | off |
@@ -34,35 +38,40 @@ On *Appearance → Galley → Settings*:
 A visitor switches the scheme with the button in the header; the choice
 is kept in the browser.
 
-## Under a text
+## Lists
+
+A row of a list is a line of small capitals - a term shown as a badge
+(in the accent), the author, the date, the counters - then the title,
+the start of the text and the tags. An item *sticky at the top of
+lists* leads with its picture across the column.
+
+## An article
 
 When the content type shows the author and date (an article, not a page
-like *About*), the text ends with:
+like *About*):
 
-- sharing: the browser's own share sheet where it has one, copying the
-  address, an e-mail;
-- the author: the avatar, the name and the signature from the profile.
-
-Similar items, comments and the modules' parts (a rating, say) follow
-as usual.
+- the byline - the avatar, the name, the dates and the views - is in the
+  margin, the contents of the text under it;
+- the text opens with a drop capital;
+- under the text: sharing (the browser's own share sheet where it has
+  one, copying the address, an e-mail) and the author with the signature
+  from the profile.
 
 ## Regions
 
-The engine's regions - *Header*, *Sidebar*, *Content top*, *Content
-bottom*, *Inside content*, *Footer*, *Footer bottom line* - so blocks
-placed for another theme stay where they are. The header region holds
-the main menu, under the site's name. There is no column beside the
-text: the *Sidebar* is *Under the content* here, a block after another,
-so blocks placed in another theme's sidebar stay on the page. A new site
-gets the copyright block and a "Powered by Kosatka CMS" block in *Footer
-bottom line*; both are ordinary blocks to change or remove on *Blocks*.
+The engine's regions, so blocks placed for another theme stay where they
+are. The *Sidebar* is the *Margin* here: beside the text on a wide
+screen, under it on a narrow one. The header region holds the main menu,
+in one row with the site's name. A new site gets the copyright block
+and a "Powered by Kosatka CMS" block in *Footer bottom line*; both are
+ordinary blocks to change or remove on *Blocks*.
 
 ## Fonts
 
-Source Serif 4 for headings and text, Inter for the menu, dates and
-buttons, both with Latin, Cyrillic and Greek. They come with the theme
-(`static/fonts`, SIL Open Font License 1.1) and the site serves them: no
-requests to other servers.
+Spectral for headings and text, Inter for the menu, dates and labels,
+both with Latin and Cyrillic. They come with the theme (`static/fonts`,
+SIL Open Font License 1.1) and the site serves them: no requests to
+other servers.
 
 ## Translations
 
