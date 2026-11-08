@@ -1441,6 +1441,17 @@ main.container.container-content {
     text-transform: uppercase;
 }
 
+/* The comments' count links to them, in the line's colour. */
+.g-byline-meta a {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+}
+
+.g-byline-meta a:hover {
+    color: var(--g-accent);
+}
+
 /* In the margin the date and the counters go one under another, under
    the avatar and the name. */
 .g-byline-margin {

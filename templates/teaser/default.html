@@ -1,6 +1,6 @@
 {{/* The galley teaser (a term's page and other lists of teasers;
      entity.TeaserItem), a row like the Views' lists: a line of small
-     capitals - the date and the comments - then the title, the start of
+     capitals - the date, the reading time and the comments - then the title, the start of
      the body text and the terms with public pages; the type's first image
      field in its list style, shown as the "list_pictures" setting says
      (galley.css). */}}
@@ -12,7 +12,7 @@
     {{with $it.MainImage}}{{if .URI}}
     <a href="{{$href}}" class="node-teaser-image" tabindex="-1" aria-hidden="true">{{img (styledPicture . $it.ImageStyle) ""}}</a>
     {{end}}{{end}}
-    <p class="g-teaser-meta"><time datetime="{{$it.Node.CreatedAt.Format "2006-01-02T15:04:05Z07:00"}}">{{date $it.Node.CreatedAt "medium"}}</time>{{with $it.CommentCount}}<span>{{plural . "@count comment" "@count comments"}}</span>{{end}}</p>
+    <p class="g-teaser-meta"><time datetime="{{$it.Node.CreatedAt.Format "2006-01-02T15:04:05Z07:00"}}">{{date $it.Node.CreatedAt "medium"}}</time>{{with $it.ReadingTime}}<span>{{plural . "@count min read" "@count min read"}}</span>{{end}}{{with $it.CommentCount}}<span>{{plural . "@count comment" "@count comments"}}</span>{{end}}</p>
     <h2 class="node-teaser-title"><a href="{{$href}}"{{with $it.Node.Langcode}} lang="{{.}}"{{end}}>{{$title}}</a>{{with otherLanguage $it.Node.Langcode}} <span class="badge text-bg-secondary node-teaser-language">{{.}}</span>{{end}}</h2>
     {{with plainPreview $it.Body 240}}<p class="node-teaser-text">{{.}}</p>{{end}}
     {{if $it.Terms}}<p class="g-tags">{{range $it.Terms}}{{range .}}{{if .HasPublicPage}}<a href="{{localURL (print "/" .Slug)}}">{{termName .}}</a>{{end}}{{end}}{{end}}</p>{{end}}

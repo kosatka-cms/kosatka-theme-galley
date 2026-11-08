@@ -13,6 +13,8 @@ phone the margin goes under the text.
 
 ## Install
 
+Kosatka 0.1.4 or newer.
+
 ```bash
 app theme add https://github.com/kosatka-cms/kosatka-theme-galley
 ```
@@ -50,8 +52,9 @@ lists* leads with its picture across the column.
 When the content type shows the author and date (an article, not a page
 like *About*):
 
-- the byline - the avatar, the name, the dates and the views - is in the
-  margin, the contents of the text under it;
+- the byline - the avatar, the name, the dates, the views, the reading
+  time and the comments (a link to them) - is in the margin, the
+  contents of the text under it;
 - the text opens with a drop capital;
 - under the text: sharing (the browser's own share sheet where it has
   one, copying the address, an e-mail) and the author with the signature

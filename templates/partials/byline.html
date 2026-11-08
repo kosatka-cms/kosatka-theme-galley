@@ -1,6 +1,7 @@
 {{/* galley_byline - a content item's byline: the author's avatar and
      name (a link to the profile), the date, the date of the last change
-     when it differs, the view count when the type shows it. Takes
+     when it differs, the view count when the type shows it, the reading
+     time and the comments (a link to them) when there are any. Takes
      (dict "Ctx" <the page's data> "Class" <where: g-byline-inline in the
      column, g-byline-margin in the margin>); the class article-meta is
      the engine's. */}}
@@ -16,6 +17,8 @@
         <time datetime="{{$c.item.Node.CreatedAt.Format "2006-01-02T15:04:05Z07:00"}}">{{date $c.item.Node.CreatedAt "medium"}}</time>
         {{if not $c.item.Node.UpdatedAt.IsZero}}{{if ne (date $c.item.Node.UpdatedAt "medium") (date $c.item.Node.CreatedAt "medium")}}<span>{{t "Updated:"}} <time datetime="{{$c.item.Node.UpdatedAt.Format "2006-01-02T15:04:05Z07:00"}}">{{date $c.item.Node.UpdatedAt "medium"}}</time></span>{{end}}{{end}}
         {{if $c.contentType.ShowViewCount}}<span>{{plural $c.item.Node.Counter.TotalCount "@count view" "@count views"}}</span>{{end}}
+        {{with $c.readingTime}}<span>{{plural . "@count min read" "@count min read"}}</span>{{end}}
+        {{with $c.commentCount}}<a href="#comments">{{plural . "@count comment" "@count comments"}}</a>{{end}}
     </p>
 </div>
 {{end}}
