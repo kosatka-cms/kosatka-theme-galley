@@ -621,6 +621,18 @@ main.container.container-content {
     color: var(--g-accent);
 }
 
+/* A term's description on its page, between the title and the list: a
+   line of italics, as the front page's heading. */
+.term-description {
+    max-width: 40rem;
+    margin: 0 0 2.25rem;
+    color: var(--g-body);
+    font-family: var(--g-serif);
+    font-size: 1.1875rem;
+    font-style: italic;
+    line-height: 1.5;
+}
+
 /* Lists (Views): rows between hairlines - a line of small capitals (the
    kicker, the date, the author, the counters), the title, the start of
    the text, the tags. A sticky row ("at the top of lists") leads with

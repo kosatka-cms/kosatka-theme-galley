@@ -11,9 +11,28 @@ phone the margin goes under the text.
 
 ![Galley](https://raw.githubusercontent.com/kosatka-cms/kosatka-theme-galley/main/static/screenshot.jpg)
 
+## Screenshots
+
+The [demo site](#a-demo-site); a picture opens the whole page.
+
+<table>
+  <tr>
+    <td width="50%"><a href="docs/screenshots/home.webp"><img src="docs/screenshots/home-preview.webp" alt="The front page"></a><br>The front page: the pinned essay leading with its picture, the margin's notes beside</td>
+    <td width="50%"><a href="docs/screenshots/essay.webp"><img src="docs/screenshots/essay-preview.webp" alt="An essay"></a><br>An essay: the byline and the contents in the margin, a drop capital</td>
+  </tr>
+  <tr>
+    <td><a href="docs/screenshots/section.webp"><img src="docs/screenshots/section-preview.webp" alt="A term's page"></a><br>A term's page</td>
+    <td><a href="docs/screenshots/home-dark.webp"><img src="docs/screenshots/home-dark-preview.webp" alt="The front page in the dark scheme"></a><br>The dark scheme</td>
+  </tr>
+  <tr>
+    <td><a href="docs/screenshots/phone-home.webp"><img src="docs/screenshots/phone-home-preview.webp" alt="The front page on a phone" width="48%"></a> <a href="docs/screenshots/phone-essay.webp"><img src="docs/screenshots/phone-essay-preview.webp" alt="An essay on a phone, dark" width="48%"></a><br>On a phone: the front page, an essay in the dark scheme</td>
+    <td></td>
+  </tr>
+</table>
+
 ## Install
 
-Kosatka 0.1.4 or newer.
+Kosatka 0.1.6 or newer.
 
 ```bash
 app theme add https://github.com/kosatka-cms/kosatka-theme-galley
@@ -21,6 +40,29 @@ app theme add https://github.com/kosatka-cms/kosatka-theme-galley
 
 Then commit `themes/` and choose *Galley* on *Appearance*. See
 [Distributing a theme](https://kosatka-cms.github.io/kosatka/themes/distribute/).
+
+More themes for Kosatka: the [themes catalog](https://github.com/kosatka-cms/themes).
+
+## A demo site
+
+The theme comes with a demo site in English (`demo/en.yaml`):
+"Marginalia", a journal of essays and notes about reading and writing -
+essays with their pictures, sections and tags, comments, the margin's
+notes. Everything in it is made up - the people, the books, the shops
+and the essays; its pictures are abstract, drawn for it, and come with
+the theme (`demo/images`). On a new site:
+
+```bash
+app install -site-name "Marginalia" -admin-name admin -admin-email admin@example.com \
+  -language en -demo-set galley
+```
+
+Everything the demo creates is ordinary content, Views and blocks,
+changed or deleted in the admin.
+
+The screenshots above are of it: `python3 scripts/screenshots.py
+http://127.0.0.1:8080` (the demo site's address) takes them again into
+`docs/screenshots/` - Python 3 and Google Chrome are all it needs.
 
 ## Settings
 

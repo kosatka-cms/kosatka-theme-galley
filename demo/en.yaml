@@ -1,0 +1,299 @@
+# The galley theme's demo site (app install -demo-set galley):
+# "Marginalia", a journal of essays and notes about reading and writing -
+# books, notebooks, bookshops, print. A front page of rows with the pinned
+# essay leading with its picture, the sections in the menu, the margin's
+# blocks as notes. Everything here is made up - the people, the books,
+# the shops and the essays; the pictures are the theme's own
+# (demo/images), abstract, drawn for it.
+site:
+  slogan: Notes from the edge of the page
+  front_page_view: home
+  main_menu: main
+  footer_menu: footer
+
+users:
+  - paper_moth
+  - slow_reader
+  - ink_well
+  - old_type
+  - mira_leaf
+  - night_owl_reads
+
+vocabularies:
+  - name: sections
+    label: Sections
+    path: sections
+    terms:
+      - {name: Essays, description: "Longer pieces: one thought about books, followed as far as it goes."}
+      - {name: Notes, description: "Short pieces, written between two chapters of something else."}
+      - {name: Letters, description: "Letters to readers, writers and the people who return books late."}
+      - {name: Interviews, description: "Conversations with people whose work ends up on the page."}
+  - name: tags
+    label: Tags
+    path: tags
+    terms: [reading, writing, notebooks, bookshops, printing, typography, translation, libraries, paper, letters, habits, trains, night, indexes]
+
+field_storages:
+  - {name: field_section, type: taxonomy, vocabulary: sections}
+  - {name: field_tags, type: taxonomy, vocabulary: tags, multiple: true}
+
+content_types:
+  - name: essay
+    label: Essay
+    description: An essay, a note, a letter or an interview - a text with its cover picture.
+    path: essays
+    comments: open
+    show_submitted: true
+    show_view_count: true
+    promote: true
+    fields:
+      - {storage: field_image, label: Cover, show_on_detail: true, detail_image_style: article_wide, list_image_style: article_card, sort_order: 0, display_order: 0}
+      - {storage: field_section, label: Section, widget: select, show_on_detail: true, sort_order: 10, display_order: 5}
+      - {storage: field_body, label: Text, widget: textarea, text_formats: [basic_html, plain_text], show_on_detail: true, renders_in_body: true, sort_order: 20, display_order: 10}
+      - {storage: field_tags, label: Tags, widget: autocomplete, show_on_detail: true, show_label: true, sort_order: 30, display_order: 20}
+
+nodes:
+  - key: in_praise_of_the_margin
+    type: essay
+    title: In praise of the margin
+    author: paper_moth
+    sticky: true
+    ago: 1d
+    views: 1980
+    fields:
+      field_image: {file: images/in-praise-of-the-margin.webp}
+      field_section: Essays
+      field_tags: [reading, writing, habits]
+      field_body: |
+        <p>Every book I own has a second text in it, written in pencil, in a hand that changes over the years. It runs down the outside of the page, a few words at a time: a question mark, a date, a name, once in a while a whole sentence. It is the most honest record of my reading I have, and it lives in the margin.</p>
+        <h2>A page has room for two</h2>
+        <p>The margin is not empty space the printer forgot to fill. It is where the page breathes, and where the reader is invited in. A page with no margin is a wall; a page with a wide one is a table with a chair pulled out.</p>
+        <blockquote><p>Read with a pencil, and the book starts talking back.</p></blockquote>
+        <p>Older books knew this. Their margins were wide enough for a reader to argue in, and plenty of readers did - the arguments are still there, in hands nobody can name any more.</p>
+        <h2>What goes there</h2>
+        <p>Not summaries: the book already has its own words. What goes in the margin is what the book can't know - where you were when you read this line, what it reminded you of, which other book it disagrees with. A margin note is a meeting between two texts, and you are the one who arranged it.</p>
+        <p>Mine are mostly small. A tick for a sentence I want to find again. A wavy line for one I don't believe. An arrow to the bottom of the page where the thought went on without me.</p>
+        <hr>
+        <h2>The case against</h2>
+        <p>Some people would never write in a book, and I understand them. A clean copy is a promise to the next reader that they will meet the book alone. Libraries ask it of us, and rightly. For those books I keep a notebook beside them, and copy the page number into it: a margin, moved out of the book.</p>
+        <h2>Reading the old notes</h2>
+        <p>The best part comes later. Open a book you read ten years ago and the margin tells you who you were then - what you underlined, what you missed, what made you angry. Sometimes I agree with that reader. More often I want to write a note under the note.</p>
+        <p>So I do. In a different pencil, with the year beside it. The margin has room for both of us.</p>
+    comments:
+      - author: slow_reader
+        body: A wavy line for the sentences you don't believe - I'm stealing that.
+        replies:
+          - author: paper_moth
+            body: Take it. It works best with a soft pencil.
+      - author: mira_leaf
+        body: I keep the notebook beside the library books, as you do. It has become a book of its own.
+  - key: a_year_of_notebooks
+    type: essay
+    title: A year of paper notebooks
+    author: ink_well
+    ago: 3d
+    views: 1240
+    fields:
+      field_image: {file: images/a-year-of-notebooks.webp}
+      field_section: Notes
+      field_tags: [notebooks, writing, habits, paper]
+      field_body: |
+        <p>Last January I moved everything from my phone to paper: the lists, the drafts, the half-sentences that arrive on the bus. Twelve months later there are seven notebooks on the shelf, held together with the same elastic band.</p>
+        <p>What changed was not the handwriting but the patience. On paper you can't search, so you reread. And rereading is where most of the good ideas were hiding in the first place.</p>
+    comments:
+      - author: night_owl_reads
+        body: Seven in a year! I'm still on the one I started in spring.
+  - key: the_bookshop_on_mill_lane
+    type: essay
+    title: The second-hand bookshop on Mill Lane
+    author: slow_reader
+    ago: 5d
+    views: 1610
+    fields:
+      field_image: {file: images/the-bookshop-on-mill-lane.webp}
+      field_section: Essays
+      field_tags: [bookshops, reading]
+      field_body: |
+        <p>The shop has no sign, a cat that is not for sale and a system of shelving that the owner describes as "by feeling". Poetry is next to the cookery books because, she says, both are about measuring.</p>
+        <p>I went in for a map and came out with a travel diary from a stranger's holiday, three novels with other people's names inside the cover and a postcard someone used as a bookmark in the year I was born.</p>
+        <p>That is the thing about a second-hand book: it has already been somewhere. You are not its first reader, and the ones before you have left the door open.</p>
+  - key: a_morning_in_a_print_shop
+    type: essay
+    title: "How a page is set: a morning in a print shop"
+    author: old_type
+    ago: 8d
+    views: 1130
+    fields:
+      field_image: {file: images/a-morning-in-a-print-shop.webp}
+      field_section: Essays
+      field_tags: [printing, typography, paper]
+      field_body: |
+        <p>The letters live in a wooden case, each in its own compartment, the common ones near the hand and the rare ones at the edges. The printer picks them one by one into a composing stick, upside down and back to front, and reads them that way without thinking about it.</p>
+        <p>A line of type is set, spaced and tightened until it holds. Then the next one. By eleven o'clock there is a paragraph on the stone, and the shop smells of ink and oil and the paper waiting by the press.</p>
+        <blockquote><p>Every space between two words was put there by somebody's fingers.</p></blockquote>
+        <p>I have read books all my life without once thinking about the spaces. I will now think about nothing else.</p>
+    comments:
+      - author: paper_moth
+        body: The common letters near the hand - the case is laid out like a kitchen.
+  - key: one_novel_two_languages
+    type: essay
+    title: Reading the same novel in two languages
+    author: mira_leaf
+    ago: 11d
+    views: 870
+    fields:
+      field_image: {file: images/one-novel-two-languages.webp}
+      field_section: Notes
+      field_tags: [translation, reading]
+      field_body: |
+        <p>I read the novel first in the original, slowly, with a dictionary, and then in translation, fast, the way you read when you already know the ending. They were not the same book.</p>
+        <p>The translation was smoother and a little more polite. The original had rough edges in the places where the author was clearly in a hurry, or angry, or both. I loved the translator for smoothing them, and missed them anyway.</p>
+  - key: a_letter_about_a_late_book
+    type: essay
+    title: A letter to the person who returned this book late
+    author: night_owl_reads
+    ago: 14d
+    views: 1420
+    fields:
+      field_image: {file: images/a-letter-about-a-late-book.webp}
+      field_section: Letters
+      field_tags: [libraries, letters, reading]
+      field_body: |
+        <p>Dear reader before me,</p>
+        <p>You kept it for eleven weeks. I know because the library told me, every Monday, that it was still out. I imagined you on a long journey, reading it in the evenings, unable to stop and unwilling to hurry.</p>
+        <p>Then it came, and I found the train ticket you used as a bookmark - page 212, a little over halfway. You never finished it, did you?</p>
+        <p>I did. It gets better after 212. I left the ticket where it was, in case you come back for it.</p>
+        <p>Yours, the next reader</p>
+    comments:
+      - author: ink_well
+        body: Page 212 is where everyone stops. Nobody knows why.
+      - author: old_type
+        body: The best thing on the site, and the shortest.
+  - key: short_chapters
+    type: essay
+    title: Short chapters, and why I trust them
+    author: ink_well
+    ago: 17d
+    views: 760
+    fields:
+      field_image: {file: images/short-chapters.webp}
+      field_section: Notes
+      field_tags: [reading, writing]
+      field_body: |
+        <p>A short chapter is a promise: this will not take long, and when it is over you may stop. Of course you never stop. You read one more, because it is also short, and then it is one in the morning.</p>
+        <p>A writer who uses short chapters trusts the reader to come back. A writer who uses long ones is afraid we won't. I prefer to be trusted.</p>
+  - key: night_trains_and_thick_novels
+    type: essay
+    title: Night trains and thick novels
+    author: paper_moth
+    ago: 20d
+    views: 980
+    fields:
+      field_image: {file: images/night-trains-and-thick-novels.webp}
+      field_section: Essays
+      field_tags: [trains, night, reading]
+      field_body: |
+        <p>There is a kind of novel that only gets read on a night train: eight hundred pages, small print, a family over four generations. At home it would sit on the shelf for years. On the train there is nothing else to do, and that is the point.</p>
+        <p>The lamp over the bunk, the carriage rocking, the stations sliding past without stopping. By the border you are in the second generation. By morning, the third has fallen in love with the wrong person, and the train is coming into a city you have never seen.</p>
+  - key: an_interview_with_an_indexer
+    type: essay
+    title: An interview with an indexer
+    author: old_type
+    ago: 24d
+    views: 690
+    fields:
+      field_image: {file: images/an-interview-with-an-indexer.webp}
+      field_section: Interviews
+      field_tags: [indexes, writing, paper]
+      field_body: |
+        <p>Hester Vale has made the indexes of more than three hundred books. We talked about cards, pencils and the word "see".</p>
+        <p><strong>How does an index begin?</strong></p>
+        <p>With the proofs and a box of cards. I read the book once without writing anything, and then again with the pencil. Every name, every idea that someone might come looking for, gets a card and a page number.</p>
+        <p><strong>What is the hardest part?</strong></p>
+        <p>Deciding what a book is about. The author knows what they meant; the index has to know what a reader will search for. They are not always the same thing.</p>
+        <p><strong>And your favourite entry?</strong></p>
+        <p>"Patience, see also: proofs". I put it in a book about gardening, and nobody has ever asked me to take it out.</p>
+  - key: what_a_typeface_remembers
+    type: essay
+    title: What a typeface remembers
+    author: mira_leaf
+    ago: 28d
+    views: 820
+    fields:
+      field_image: {file: images/what-a-typeface-remembers.webp}
+      field_section: Essays
+      field_tags: [typography, printing]
+      field_body: |
+        <p>Look closely at the letter "a" in the book in front of you. The bowl, the curve over it, the little foot at the bottom right: each one is a decision somebody made with a pen, long before the letters were metal, and long before they were light on a screen.</p>
+        <p>A typeface remembers the hand that drew it. The angle of the pen is still there in the thick and thin parts of the strokes, even in a font that was never touched by one. Reading, we follow that hand without knowing it is there.</p>
+
+  - key: about
+    type: page
+    title: About
+    path: about
+    fields:
+      field_body: |
+        <p>Marginalia is a demo site of the Kosatka engine and its Galley theme: a journal of essays and notes about reading and writing. Everything here - the people, the books, the shops and the essays - is made up; the pictures are drawn for it.</p>
+        <p>The essays are ordinary content, changed and deleted in the admin; the sections and the tags are terms, the notes in the margin are blocks.</p>
+
+views:
+  - name: home
+    label: Essays on the front page
+    display_type: block
+    style: list
+    pager: true
+    page_size: 8
+    fields:
+      - {storage: field_image, image_style: article_card, link_to: content}
+      - {storage: field_section, tag_format: badges}
+      - {builtin: title, link_to: content}
+      - {builtin: author, show_label: true}
+      - {builtin: created_at, date_format: medium}
+      - {storage: field_body, trim_length: 260}
+      - {storage: field_tags, tag_format: linked, show_label: true}
+      - {builtin: view_count, show_label: true}
+      - {builtin: comment_count, show_label: true}
+    filters:
+      - {builtin: status, operator: eq, value: "1"}
+      - {builtin: promote, operator: eq, value: "1"}
+      - {builtin: on_moderation, operator: eq, value: "0"}
+    sorts:
+      - {builtin: sticky, direction: desc}
+      - {builtin: created_at, direction: desc}
+  - name: most_read
+    label: Most read
+    display_type: block
+    style: list
+    page_size: 5
+    fields:
+      - {builtin: title, link_to: content}
+      - {builtin: view_count, show_label: true}
+    filters:
+      - {builtin: content_type, operator: in, value: essay}
+      - {builtin: status, operator: eq, value: "1"}
+    sorts:
+      - {builtin: views, direction: desc}
+
+blocks:
+  - {region: sidebar, plugin: search_form, title: Search, weight: 1}
+  - region: sidebar
+    weight: 2
+    title: About this journal
+    show_title: true
+    body: <p>Essays and notes about reading and writing - books, notebooks, bookshops and print, one page at a time.</p><p><a href="/about">More about us</a></p>
+  - {region: sidebar, view: most_read, title: Most read, show_title: true, weight: 3}
+  - {region: sidebar, plugin: last_comments, title: Latest comments, weight: 4}
+  - {region: sidebar, plugin: tag_cloud, vocabulary: tags, title: Tags, show_title: true, weight: 5, config: {count: "14"}}
+
+menus:
+  - name: main
+    links:
+      - {title: Essays, term: sections/Essays}
+      - {title: Notes, term: sections/Notes}
+      - {title: Letters, term: sections/Letters}
+      - {title: Interviews, term: sections/Interviews}
+  - name: footer
+    label: Footer
+    region: footer
+    links:
+      - {title: About, node: about}
